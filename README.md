@@ -6,14 +6,14 @@ A lightweight console-based task manager for Windows, similar to `htop`.
    - CPU usage
    - RAM usage
    - System uptime  
-✅ ==(SOON)== Show a real-time list of running processes:
+✅ (SOON)Show a real-time list of running processes:
    - PID (Process ID)
    - Process name
    - CPU and memory usage per process
    - Process state (Running, Suspended, Not Responding)
    - User who started the process  
-✅ ==(SOON)== Auto-refresh system data every N seconds
-✅ ==(SOON)== (Optional) Interactive process management:
+✅ (SOON)Auto-refresh system data every N seconds
+✅ (SOON)(Optional) Interactive process management:
    - Kill process by PID
    - Change process priority  
 
@@ -25,8 +25,8 @@ A lightweight console-based task manager for Windows, similar to `htop`.
 
 ### Clone the repository
 ```sh
-git clone https://github.com/your-username/windows-task-monitor.git
-cd windows-task-monitor
+git clone https://github.com/your-username/simple-cmd-task-manager.git
+cd simple-cmd-task-manager
 ```
 
 ## Usage
@@ -49,10 +49,10 @@ PID    USER        CPU%   MEM%   STATUS       COMMAND
 
 ## Technical Details
 This project retrieves system and process information using:
-- ==soon==
+- soon
 
 ## Future Improvements
-- ==soon==
+- soon
 
 ## License
 This project is licensed under the MIT License.
