@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "system_info_provider_impl.h"
 #include "system_info_guards.h"
+#include "system_info_process_data_provider.h"
+#include "system_info_general_info_provider.h"
 
 namespace sys
 {
@@ -49,28 +51,8 @@ namespace sys
     {
         try
         {
-            pdh_query query;
-            PDH_HCOUNTER cpu_used;
-            PDH_HCOUNTER ram_used;
-            PDH_HCOUNTER up_time;
-
-            PdhAddCounter(
-                query.get(),
-                L"\\Processor(_Total)\\% Processor Time",
-                NULL,
-                &cpu_used);
-
-            PdhAddCounter(
-                query.get(),
-                L"\\Memory\\% Committed Bytes In Use",
-                NULL,
-                &ram_used);
-
-            PdhAddCounter(
-                query.get(),
-                L"\\System\\System Up Time",
-                NULL,
-                &up_time);
+            cpu_usage_provider process_cup_usage_provider;
+            general_info_provider general_provider;
 
             while (true)
             {
@@ -82,37 +64,26 @@ namespace sys
 
                 Sleep(1000);
 
-                PDH_FMT_COUNTERVALUE cpu_val{};
-                PDH_FMT_COUNTERVALUE ram_val{};
-                PDH_FMT_COUNTERVALUE up_time_val{};
+                double general_cpu_usage = 0.0;
+                double general_ram_usage = 0.0;
+                double up_time = 0.0;
+                general_provider.get_general_data(
+                    general_cpu_usage,
+                    general_ram_usage,
+                    up_time);
 
-                PdhCollectQueryData(query.get());
+                auto active_processes_info = process_cup_usage_provider.get_cpu_usage_for_all_proc();
 
-                PdhGetFormattedCounterValue(
-                    cpu_used,
-                    PDH_FMT_DOUBLE,
-                    NULL,
-                    &cpu_val);
-
-                PdhGetFormattedCounterValue(
-                    ram_used,
-                    PDH_FMT_DOUBLE,
-                    NULL,
-                    &ram_val);
-
-                PdhGetFormattedCounterValue(
-                    up_time,
-                    PDH_FMT_DOUBLE,
-                    NULL,
-                    &up_time_val);
-
-                if (observer_)
+                //
+                // NEED TO UPDATE INTERFACE
+                //
+                /*if (observer_)
                 {
                     observer_->on_new_info(
                         cpu_val.doubleValue,
                         ram_val.doubleValue,
                         up_time_val.doubleValue);
-                }
+                }*/
             }
         }
         catch (const std::exception& ex)

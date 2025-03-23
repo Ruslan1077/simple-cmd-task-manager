@@ -1,6 +1,5 @@
 #pragma once
 
-#pragma comment(lib, "pdh.lib")
-
-#include <Pdh.h>
 #include <cmath>
+#include <vector>
+#include <sstream>

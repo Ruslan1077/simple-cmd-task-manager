@@ -1,4 +1,5 @@
 #include <iostream>
+#include <windows.h>
 #include <system_info_provider_impl.h>
 
 // DBG
@@ -45,23 +46,22 @@ private:
     }
 };
 
+
 int main()
 {
     system("pause");
-
     observer obs;
-    auto provider = sys::system_info_provider_impl::create(&obs);
+    auto info_provider = sys::system_info_provider_impl::create(&obs);
 
-    provider->run_update_async();
-
-    int cmd;
-    while (std::cin >> cmd)
+    while (true)
     {
-        if (cmd == 1)
-        {
-            provider->stop_update();
-            return 0;
-        }
+        system("cls");
+
+
+
+        /*std::cout << "CPU: " << get_cpu_usage(13468);*/
+
+        Sleep(1000);
     }
 
     return 0;

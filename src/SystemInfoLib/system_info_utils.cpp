@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "system_info_utils.h"
+#include <Psapi.h>
 
 namespace sys
 {
@@ -21,6 +22,38 @@ namespace sys
 
         result.seconds_ = static_cast<int>(up_time_sec);
         return result;
+    }
+
+    std::vector<DWORD> get_all_active_pids()
+    {
+        std::vector<DWORD> pids(1024);
+        DWORD size = 0;
+
+        if (EnumProcesses(pids.data(), pids.size(), &size))
+        {
+            size_t returned_size = size / sizeof(DWORD);
+            pids.resize(returned_size);
+            return pids;
+        }
+
+        pids.resize(pids.size() * 2);
+        if (EnumProcesses(pids.data(), pids.size(), &size))
+        {
+            size_t returned_size = size / sizeof(DWORD);
+            pids.resize(returned_size);
+            return pids;
+        }
+
+        throw std::runtime_error("Need more size for PIDs array");
+    }
+
+    int64_t file_time_2_utc(const FILETIME* ftime)
+    {
+        LARGE_INTEGER li;
+
+        li.LowPart = ftime->dwLowDateTime;
+        li.HighPart = ftime->dwHighDateTime;
+        return li.QuadPart;
     }
 
 } // namespace sys

@@ -33,4 +33,30 @@ namespace sys
         HQUERY query_;
     };
 
+    class process_handle
+    {
+    public:
+        explicit process_handle(DWORD pid)
+        {
+            process_handle_ = OpenProcess(
+                PROCESS_ALL_ACCESS,
+                false,
+                pid);
+        }
+
+        HANDLE get()
+        {
+            return process_handle_;
+        }
+
+        ~process_handle()
+        {
+            if (process_handle_)
+                CloseHandle(process_handle_);
+        }
+
+    private:
+        HANDLE process_handle_;
+    };
+
 } // namespace sys

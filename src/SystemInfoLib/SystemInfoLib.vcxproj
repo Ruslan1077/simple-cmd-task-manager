@@ -90,7 +90,10 @@
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="system_info_commons.h" />
+    <ClInclude Include="system_info_consts.h" />
+    <ClInclude Include="system_info_general_info_provider.h" />
     <ClInclude Include="system_info_guards.h" />
+    <ClInclude Include="system_info_process_data_provider.h" />
     <ClInclude Include="system_info_provider.h" />
     <ClInclude Include="system_info_provider_impl.h" />
     <ClInclude Include="system_info_utils.h" />
@@ -100,6 +103,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="system_info_consts.cpp" />
+    <ClCompile Include="system_info_general_info_provider.cpp" />
+    <ClCompile Include="system_info_process_data_provider.cpp" />
     <ClCompile Include="system_info_provider_impl.cpp" />
     <ClCompile Include="system_info_utils.cpp" />
   </ItemGroup>
